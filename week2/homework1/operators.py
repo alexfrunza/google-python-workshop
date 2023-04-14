@@ -1,0 +1,32 @@
+"""
+    Operators implemented in calculator
+"""
+
+
+def add(a: float, b: float) -> float:
+    return a + b
+
+
+def sub(a: float, b: float) -> float:
+    return a - b
+
+
+def mul(a: float, b: float) -> float:
+    return a * b
+
+
+def div(a: float, b: float) -> float:
+    return a / b
+
+
+def power(a: float, b: float) -> float:
+    return a**b
+
+
+operators = {
+    "+": add,
+    "-": sub,
+    "*": mul,
+    "/": div,
+    "^": power,
+}
