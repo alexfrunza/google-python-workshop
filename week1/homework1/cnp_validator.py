@@ -73,7 +73,7 @@ if cnp[3:5] == "02" and not an_bisect and int(cnp[5:7]) > 28:
     sys.exit()
 
 # Testare cod judet/sector
-if not (1 <= int(cnp[7:9]) <= 52):
+if not (1 <= int(cnp[7:9]) <= 46 or 51 <= int(cnp[7:9]) <= 52):
     print("CNP-ul nu are un cod de judet/sector valid!")
     sys.exit()
 
