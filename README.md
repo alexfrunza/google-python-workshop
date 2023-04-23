@@ -24,6 +24,10 @@ april-may 2023.
 - [To-do list CLI](week3/todo)
     * Leverage python knowledge in a more complex app. Learn how to organize an
       application.
+    * Application's features: add categories, show categories, add a task (which
+contains some infos, deadline, the person assigned to do it, a category, and
+if the task exists an error will be thrown), a menu from each action can be done,
+sorting tasks by fields, filter by fields, edit tasks, delete tasks.
     * Usage: 
 
 First argument is the path to the file with to-do elements and the second 
