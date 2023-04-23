@@ -6,7 +6,7 @@ from display import print_warning, print_board_string
 from todo_exception import TodoException, TodoInterrupted
 
 
-def add_category(file_categories: str):
+def add_category(file_name: str):
     name = input("Category name: ")
 
     if name == 'q':
@@ -14,17 +14,17 @@ def add_category(file_categories: str):
 
     if "," in name:
         raise TodoException("The category can't contain commas!")
+    if "#" in name:
+        raise TodoException("The category can't contain the character '#'!")
 
-    categories = get_categories(file_categories)
-
-    if name in categories:
+    if category_exists(file_name, name):
         raise TodoException(f"Category {name} already exists!")
 
-    write_single_category_to_file(file_categories, name)
+    write_single_category_to_file(file_name, name)
 
 
-def show_categories(file_categories: str):
-    categories = get_categories(file_categories)
+def show_categories(file_name: str):
+    categories = get_categories(file_name)
 
     if len(categories) == 0:
         print_warning("No categories available!")
@@ -52,3 +52,9 @@ def write_single_category_to_file(file_name: str, category: str):
     else:
         with open(file_name, "a") as categories_file:
             categories_file.write(f",{category}")
+
+
+def category_exists(file_name: str, name: str) -> bool:
+    categories = get_categories(file_name)
+
+    return name in categories

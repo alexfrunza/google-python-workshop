@@ -3,6 +3,7 @@ import os.path
 
 import display
 import category
+import task
 from todo_exception import TodoException, TodoInterrupted
 
 
@@ -60,9 +61,9 @@ while True:
         elif action == "show_categories":
             category.show_categories(file_categories)
         elif action == "add_task":
-            pass
+            task.add_task(file_todos, file_categories)
         elif action == "show_tasks":
-            pass
+            task.show_tasks(file_todos)
         elif action == "edit_task":
             pass
         elif action == "delete_task":
