@@ -6,19 +6,26 @@ from display import print_warning, print_board_string
 from todo_exception import TodoException, TodoInterrupted
 
 
-def add_category(file_name: str):
-    name = input("Category name: ")
-
-    if name == 'q':
-        raise TodoInterrupted
-
+def validate_category_name(name: str, file_name: str):
     if "," in name:
         raise TodoException("The category can't contain commas!")
     if "#" in name:
         raise TodoException("The category can't contain the character '#'!")
+    if name == "":
+        raise TodoException("The category name can't be an empty string!")
 
     if category_exists(file_name, name):
         raise TodoException(f"Category {name} already exists!")
+
+
+def add_category(file_name: str):
+    name = input("Category name: ")
+    name = name.strip()
+
+    if name == 'q':
+        raise TodoInterrupted
+
+    validate_category_name(name, file_name)
 
     write_single_category_to_file(file_name, name)
 
