@@ -75,7 +75,7 @@ while True:
         elif action == "edit_task":
             task.edit_task(file_todos, file_categories)
         elif action == "delete_task":
-            pass
+            task.delete_task(file_todos)
         elif action == "choose_sort":
             sorting_method = task.choose_sort()
         elif action == "filter_tasks":

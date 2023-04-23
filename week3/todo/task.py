@@ -230,6 +230,10 @@ def edit_task(file_todos_name: str, file_categories_name: str):
     tasks = get_tasks(file_todos_name)
 
     task_number = input("Enter the number of the task you want to modify: ")
+    task_number = task_number.strip()
+
+    if task_number == "q":
+        raise TodoInterrupted
 
     try:
         task_number = int(task_number)
@@ -251,6 +255,32 @@ def edit_task(file_todos_name: str, file_categories_name: str):
         task[2] = get_assigned_to_task()
     else:
         task[3] = get_category_name_task(file_categories_name)
+
+    with open(file_todos_name, "w") as file_todos:
+        todos_writer = csv.writer(file_todos, delimiter='#')
+        todos_writer.writerows(tasks)
+
+
+def delete_task(file_todos_name: str):
+    show_tasks(file_todos_name)
+
+    tasks = get_tasks(file_todos_name)
+
+    task_number = input("Enter the number of the task you want to delete: ")
+    task_number = task_number.strip()
+
+    if task_number == "q":
+        raise TodoInterrupted
+
+    try:
+        task_number = int(task_number)
+    except ValueError:
+        raise TodoException("Your option is not a valid number!")
+
+    if not (1 <= task_number <= len(tasks)):
+        raise TodoException("The task inserted is not on the list!")
+
+    tasks.pop(task_number - 1)
 
     with open(file_todos_name, "w") as file_todos:
         todos_writer = csv.writer(file_todos, delimiter='#')
