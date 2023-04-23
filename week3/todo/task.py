@@ -7,11 +7,14 @@ from display import print_warning, print_board_string
 from todo_exception import TodoException, TodoInterrupted
 
 
-def validate_infos(infos: str):
+def validate_infos(file_todos_name: str, infos: str):
     if infos == "":
         raise TodoException("The infos field from task can't be empty!")
     if "#" in infos:
         raise TodoException("The infos field can't contain the character '#'!")
+
+    if task_exists(file_todos_name, infos):
+        raise TodoException(f"A task with this description already exists!")
 
 
 def validate_date_limit(date: str):
@@ -42,14 +45,18 @@ def validate_category(file_categories: str, name: str):
         raise TodoException("The category field can't contain the character '#'!")
 
 
-def add_task(file_todos_name: str, file_categories_name: str):
+def get_infos_task(file_todos_name: str) -> str:
     infos = input("Infos about the task: ")
     infos = infos.strip()
 
     if infos == "q":
         raise TodoInterrupted
-    validate_infos(infos)
+    validate_infos(file_todos_name, infos)
 
+    return infos
+
+
+def get_date_limit_task() -> str:
     date_limit = input("Deadline (format zz.mm.yyyy hh:mm): ")
     date_limit = date_limit.strip()
 
@@ -57,6 +64,10 @@ def add_task(file_todos_name: str, file_categories_name: str):
         raise TodoInterrupted
     validate_date_limit(date_limit)
 
+    return date_limit
+
+
+def get_assigned_to_task() -> str:
     assigned_to = input("Assigned to: ")
     assigned_to = assigned_to.strip()
 
@@ -64,6 +75,10 @@ def add_task(file_todos_name: str, file_categories_name: str):
         raise TodoInterrupted
     validate_assigned_to(assigned_to)
 
+    return assigned_to
+
+
+def get_category_name_task(file_categories_name: str) -> str:
     category_name = input("Category: ")
     category_name = category_name.strip()
 
@@ -71,10 +86,23 @@ def add_task(file_todos_name: str, file_categories_name: str):
         raise TodoInterrupted
     validate_category(file_categories_name, category_name)
 
-    task = [infos, date_limit, assigned_to, category_name]
+    return category_name
 
-    if task_exists(file_todos_name, infos):
-        raise TodoException(f"A task with this description already exists!")
+
+def get_data_about_task(file_todos_name: str, file_categories_name: str) -> List[str]:
+    infos = get_infos_task(file_todos_name)
+
+    date_limit = get_date_limit_task()
+
+    assigned_to = get_assigned_to_task()
+
+    category_name = get_category_name_task(file_categories_name)
+
+    return [infos, date_limit, assigned_to, category_name]
+
+
+def add_task(file_todos_name: str, file_categories_name: str):
+    task = get_data_about_task(file_todos_name, file_categories_name)
 
     with open(file_todos_name, "a") as file_todos:
         todos_writer = csv.writer(file_todos, delimiter="#")
@@ -161,9 +189,9 @@ Choose a number for wanted sorting method:
     return sorting_field, bool(int(option) % 2 - 1)
 
 
-def filter_tasks(file_name: str, sorting: str, reverse: bool):
-    print("""\
-Enter the number corresponding to the field you want to search by:
+def get_task_field_number(action: str) -> int:
+    print(f"""\
+Enter the number corresponding to the field you want to {action}:
 1. Task
 2. Expire time
 3. Assigned to
@@ -178,6 +206,12 @@ Enter the number corresponding to the field you want to search by:
     if filter_field not in {"1", "2", "3", "4"}:
         raise TodoException("Your option is not on the list!")
 
+    return int(filter_field) - 1
+
+
+def filter_tasks(file_name: str, sorting: str, reverse: bool):
+    filter_field = get_task_field_number("search by")
+
     search = input("Enter what you want to search for: ")
     search = search.strip()
 
@@ -187,4 +221,37 @@ Enter the number corresponding to the field you want to search by:
     if search == "":
         raise TodoException("The text you want to search by can't be empty!")
 
-    show_tasks(file_name, sorting, reverse, int(filter_field) - 1, search)
+    show_tasks(file_name, sorting, reverse, filter_field, search)
+
+
+def edit_task(file_todos_name: str, file_categories_name: str):
+    show_tasks(file_todos_name)
+
+    tasks = get_tasks(file_todos_name)
+
+    task_number = input("Enter the number of the task you want to modify: ")
+
+    try:
+        task_number = int(task_number)
+    except ValueError:
+        raise TodoException("Your option is not a valid number!")
+
+    if not (1 <= task_number <= len(tasks)):
+        raise TodoException("The task inserted is not on the list!")
+
+    field_number = get_task_field_number("modify")
+
+    task = tasks[task_number - 1]
+
+    if field_number == 0:
+        task[0] = get_infos_task(file_todos_name)
+    elif field_number == 1:
+        task[1] = get_date_limit_task()
+    elif field_number == 2:
+        task[2] = get_assigned_to_task()
+    else:
+        task[3] = get_category_name_task(file_categories_name)
+
+    with open(file_todos_name, "w") as file_todos:
+        todos_writer = csv.writer(file_todos, delimiter='#')
+        todos_writer.writerows(tasks)

@@ -73,7 +73,7 @@ while True:
                             sorting=sorting_method[0],
                             reverse=sorting_method[1])
         elif action == "edit_task":
-            pass
+            task.edit_task(file_todos, file_categories)
         elif action == "delete_task":
             pass
         elif action == "choose_sort":
