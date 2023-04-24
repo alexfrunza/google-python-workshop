@@ -9,7 +9,7 @@ from webdriver_manager.firefox import GeckoDriverManager
 
 browser = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
 
-header_list = ["NR. CRT", "Judet", "01.03", "02.03", "03.03", "04.03", "05.05"]
+header_list = ["NR. CRT", "Judet", "01.03", "02.03", "03.03", "04.03", "05.03"]
 dataset = []
 
 not_in_country = ["43", "Din străinătate"]
