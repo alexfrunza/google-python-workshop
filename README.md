@@ -22,8 +22,8 @@ april-may 2023.
 #### Week3
 
 - [To-do list CLI](week3/todo)
-    * Leverage python knowledge in a more complex app. Learn how to organize an
-      application.
+    * Leverage python knowledge in a more complex app.
+    * Learn how to organize an application.
     * Application's features: add categories, show categories, add a task (which
       contains some infos, deadline, the person assigned to do it, a category, and
       if the task exists an error will be thrown), a menu from each action can be done,
@@ -42,8 +42,8 @@ python3 week3/todo path/todos path/categories
 ```
 
 - [Web Scraper](week3/webscraper)
-    * Learn the structure of a web pages and how to gather data from them
-    * Learn how to work with external dependencies and to manage them with pip
+    * Learn the structure of web pages and how to gather data from them.
+    * Learn how to work with external dependencies and to manage them with pip.
     * How to run the script:
 
 The command bellow assume that your current directory is the root directory of
