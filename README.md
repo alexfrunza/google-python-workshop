@@ -25,13 +25,13 @@ april-may 2023.
     * Leverage python knowledge in a more complex app. Learn how to organize an
       application.
     * Application's features: add categories, show categories, add a task (which
-contains some infos, deadline, the person assigned to do it, a category, and
-if the task exists an error will be thrown), a menu from each action can be done,
-sorting tasks by fields, filter by fields, edit tasks, delete tasks.
-    * Usage: 
+      contains some infos, deadline, the person assigned to do it, a category, and
+      if the task exists an error will be thrown), a menu from each action can be done,
+      sorting tasks by fields, filter by fields, edit tasks, delete tasks.
+    * Usage:
 
-First argument is the path to the file with to-do elements and the second 
-argument is the path to the file with categories, if one or both are not 
+First argument is the path to the file with to-do elements and the second
+argument is the path to the file with categories, if one or both are not
 provided the program will create the files in current directory.
 
 The command bellow assumes that you run the program from the root directory of
@@ -39,4 +39,20 @@ this repository.
 
 ```shell
 python3 week3/todo path/todos path/categories
+```
+
+- [Web Scraper](week3/webscraper)
+    * Learn the structure of a web pages and how to gather data from them
+    * Learn how to work with external dependencies and to manage them with pip
+    * How to run the script:
+
+The command bellow assume that your current directory is the root directory of
+this repository, you will first create an isolated environment and download 
+some dependencies.
+
+```shell
+cd week3/webscraper
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
 ```
