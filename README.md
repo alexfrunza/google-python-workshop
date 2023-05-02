@@ -56,3 +56,9 @@ python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
+
+#### Week4
+- Learn about object-oriented programming principles and how to apply them in
+Python.
+- Learn about decorators and how to use them.
+- Learn about iterators.
