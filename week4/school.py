@@ -22,6 +22,7 @@ class CatalogEntry:
         self.absences = 0
 
     def __str__(self):
+        # Return message with singular form of the word absence
         if self.absences == 1:
             return f'{self.first_name} {self.last_name} - {self.absences} absence'
 
@@ -46,15 +47,21 @@ class CatalogEntryExtension(CatalogEntry):
         self.courses[course] = grades
 
     def show_courses(self):
-        print(f"Student: {self.first_name} {self.last_name} has courses:")
+        print(f"Student, {self.first_name} {self.last_name} has the following courses:")
         for course in self.courses:
             print(course)
 
     def show_avg_grades(self):
-        print(f"Student: {self.first_name} {self.last_name} has following "
+        print(f"Student, {self.first_name} {self.last_name} has the following "
               f"grades averages:")
         for name, grades in self.courses.items():
             grades = list(filter(check_number, grades))
+
+            # Error message for 0 division
+            if len(grades) == 0:
+                print(f"No grades for course {name}")
+                continue
+
             grades = list(map(lambda x: float(x), grades))
 
             print(f"Avg grade at {name} is {calculate_avg(grades):.2f}")
@@ -73,6 +80,7 @@ for _ in range(4):
 
 student2.motivate_absences(2)
 
+# Show absences
 print(student1)
 print(student2)
 print()

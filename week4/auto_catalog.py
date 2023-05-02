@@ -12,7 +12,7 @@ class Car:
 
     def __str__(self):
         if self.color is not None:
-            return f'{self.brand} {self.model} - {self.color}'
+            return f'{self.brand} {self.model} - {self.show_color()}'
 
         return f'{self.brand} {self.model}'
 
