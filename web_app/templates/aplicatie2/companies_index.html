@@ -1,35 +1,45 @@
 {% extends 'base.html' %}
+
+{% block title %}
+    Companies
+{% endblock %}
+
 {% block content %}
     {% if perms.user_profile.add_pontaj %}
-        <a class="btn btn-primary" href="{% url 'locations:adauga' %}">Adaugare locatii</a>
+        <a class="btn btn-primary mb-3" href="{% url 'companies:add' %}">Add companies</a>
     {% endif %}
     <table class="table">
         <thead>
         <tr>
             <th>Index</th>
-            <th>City</th>
-            <th>Country</th>
-            <th>State</th>
+            <th>Name</th>
+            <th>Website</th>
+            <th>Location</th>
+            <th>Status</th>
             <th>Actions</th>
         </tr>
         </thead>
         <tbody>
-        {% for item in location_list %}
+        {% for item in company_list %}
             <tr>
                 <td class="align-middle">{{ forloop.counter }}</td>
-                <td class="align-middle">{{ item.city }}</td>
-                <td class="align-middle">{{ item.country }}</td>
-                <td class="align-middle">{% if item.active is True %}
-                    Active
-                {% else %}
-                    Inactive
-                {% endif %}</td>
-                <td><a class="btn btn-success" href="{% url 'locations:modifica' item.id %}">Edit</a>
-                    <a class="btn btn-danger" href="{% url 'locations:sterge' item.id %}?page={{ page }}">Delete</a>
+                <td class="align-middle">{{ item.name }}</td>
+                <td class="align-middle">{{ item.website }}</td>
+                <td class="align-middle">{{ item.location.country }}, {{ item.location.city }}</td>
+                <td class="align-middle">
                     {% if item.active is True %}
-                        <a class="btn btn-info" href="{% url 'locations:dezactiveaza' item.id %}?page={{ page }}">Deactivate</a>
+                        Active
                     {% else %}
-                        <a class="btn btn-success" href="{% url 'locations:activeaza' item.id %}?page={{ page }}">Activate</a>
+                        Inactive
+                    {% endif %}
+                </td>
+                <td>
+                    <a class="btn btn-success" href="{% url 'companies:modify' item.id %}">Edit</a>
+                    <a class="btn btn-danger" href="{% url 'companies:delete' item.id %}?page={{ page }}">Delete</a>
+                    {% if item.active is True %}
+                        <a class="btn btn-info" href="{% url 'companies:deactivate' item.id %}?page={{ page }}">Deactivate</a>
+                    {% else %}
+                        <a class="btn btn-success" href="{% url 'companies:activate' item.id %}?page={{ page }}">Activate</a>
                     {% endif %}
                 </td>
             </tr>

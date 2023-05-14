@@ -47,7 +47,7 @@ python3 week3/todo path/todos path/categories
     * How to run the script:
 
 The command bellow assume that your current directory is the root directory of
-this repository, you will first create an isolated environment and download 
+this repository, you will first create an isolated environment and download
 some dependencies.
 
 ```shell
@@ -58,7 +58,19 @@ pip install -r requirements.txt
 ```
 
 #### Week4
+
 - Learn about object-oriented programming principles and how to apply them in
-Python.
+  Python.
 - Learn about decorators and how to use them.
 - Learn about iterators.
+
+#### Week5 - Week7
+
+- Learn about web applications and how to build them with Django and Django
+  REST Framework
+- Learn how to use SQL and Django ORM
+- Build a [demo app](web_app) during the live code sessions. The application's features:
+    * User authentication
+    * CRUD operations on location
+    * CRUD operations on companies
+
