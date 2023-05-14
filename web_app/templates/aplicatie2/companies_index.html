@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Companies
+{% endblock %}
+
+{% block content %}
+    {% if perms.user_profile.add_pontaj %}
+        <a class="btn btn-primary mb-3" href="{% url 'companies:add' %}">Add companies</a>
+    {% endif %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Index</th>
+            <th>Name</th>
+            <th>Website</th>
+            <th>Location</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in company_list %}
+            <tr>
+                <td class="align-middle">{{ forloop.counter }}</td>
+                <td class="align-middle">{{ item.name }}</td>
+                <td class="align-middle">{{ item.website }}</td>
+                <td class="align-middle">{{ item.location.country }}, {{ item.location.city }}</td>
+                <td class="align-middle">
+                    {% if item.active is True %}
+                        Active
+                    {% else %}
+                        Inactive
+                    {% endif %}
+                </td>
+                <td>
+                    <a class="btn btn-success" href="{% url 'companies:modify' item.id %}">Edit</a>
+                    <a class="btn btn-danger" href="{% url 'companies:delete' item.id %}?page={{ page }}">Delete</a>
+                    {% if item.active is True %}
+                        <a class="btn btn-info" href="{% url 'companies:deactivate' item.id %}?page={{ page }}">Deactivate</a>
+                    {% else %}
+                        <a class="btn btn-success" href="{% url 'companies:activate' item.id %}?page={{ page }}">Activate</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="d-flex align-items-center">
+        {% if is_paginated %}
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                    <li><a class="btn" href="?page={{ page_obj.previous_page_number }}"><<</a></li>
+                {% else %}
+                    <li class="disabled btn"><span><<</span></li>
+                {% endif %}
+                {% for i in paginator.page_range %}
+                    {% if page_obj.number == i %}
+                        <li class="active btn btn-info"><span>{{ i }}<span class="sr-only">(curent)</span></span></li>
+                    {% else %}
+                        <li><a class="btn" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                    <li><a class="btn" href="?page={{ page_obj.next_page_number }}">>></a></li>
+                {% else %}
+                    <li class="disabled btn"><span>>></span></li>
+                {% endif %}
+                <span class="align-right">Showing {{ page_obj.start_index }} - {{ page_obj.end_index }} of {{ page_obj.paginator.count }}</span>
+            </ul>
+        {% endif %}
+    </div>
+{% endblock %}
