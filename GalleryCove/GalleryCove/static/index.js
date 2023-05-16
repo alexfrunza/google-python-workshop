@@ -12,3 +12,11 @@ hamburgerMenuBtn.addEventListener('click', (event) => {
   }
   hamburgerMenuShowed = !hamburgerMenuShowed;
 });
+
+let inputField = document.getElementById('search');
+
+inputField.addEventListener('keypress', (event) => {
+  if (event.key === 'Enter') {
+    window.location.replace(`?q=${inputField.value}`)
+  }
+})

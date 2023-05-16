@@ -20,7 +20,7 @@
 </head>
 
 <body class="bg-gray-50 font-sans leading-normal tracking-normal min-h-screen flex flex-col">
-<nav class="sticky top-0 bg-white flex justify-between items-center p-4 border-b-2 border-gray-900">
+<nav class="sticky top-0 bg-white flex justify-between items-center p-4 border-b-2 border-gray-900 z-10">
   <a href="/" class="text-2xl"> GalleryCove </a>
   <div>
     <a href="/" class="hidden md:inline mr-4"> Discover </a>
@@ -31,7 +31,7 @@
     <img src="{% static 'iconmonstr-menu-right-lined.svg' %}" alt="menu"/>
   </button>
 </nav>
-<div id="hamburger-menu" class="sticky top-[calc(4rem+2px)] hidden bg-white">
+<div id="hamburger-menu" class="sticky top-[calc(4rem+2px)] hidden bg-white z-10">
   <a href="/" class="block p-4 border-b-2 border-gray-900"> Discover </a>
   <a href="/" class="block p-4 border-b-2 border-gray-900"> Gallery </a>
   <a href="/" class="block p-4 border-b-2 border-gray-900"> About us </a>

@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator
+from django.http import HttpResponseForbidden
 import requests
 import json
+import urllib.parse
 
 
 def index(request):
@@ -16,11 +18,21 @@ def index(request):
     except ValueError:
         page = 1
 
-    r = requests.get(
-        f'https://api.artic.edu/api/v1/artworks?page={page}&limit=12&fields=id,title,image_id,thumbnail,artist_display')
-    res = r.json()
-    data = r.json().get('data')
+    query = request.GET.get('q', '')
+    query = urllib.parse.quote_plus(query)
 
+    if query == '':
+        r = requests.get(
+            f'https://api.artic.edu/api/v1/artworks?page={page}&limit=12&fields=id,title,image_id,thumbnail,artist_display')
+    else:
+        r = requests.get(
+            f'https://api.artic.edu/api/v1/artworks/search?q={query}&page={page}&limit=12&fields=id,title,image_id,thumbnail,artist_display')
+
+    if r.status_code == 403:
+        return HttpResponseForbidden()
+    res = r.json()
+
+    data = r.json().get('data')
     end_index = res['pagination']['total_pages']
 
     if end_index <= 5:
@@ -39,6 +51,7 @@ def index(request):
         "next_page_number": page + 1,
         'pages': pages,
         'number': page,
+        'query': query
     }
 
     context = {'pictures': data, 'page_obj': page_obj}

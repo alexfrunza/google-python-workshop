@@ -6,14 +6,24 @@
 {% endblock %}
 
 {% block content %}
+
+  <label for="search" class="m-4 text-5xl relative">
+    Search the gallery
+    <img src="{% static 'iconmonstr-magnifier-4.svg' %}" alt="magnifier"
+         class="h-4 w-4 relative top-[calc(3.75rem+2px)] left-2"/>
+    <input id="search" name="search"
+           class="pl-8 block border-2 border-gray-400 w-full text-base mt-8 rounded-lg p-2 bg-gray-100 focus:outline-none focus:border-gray-900 focus:bg-white">
+  </label>
+
   <div class="self-start inline-flex items-center border-2 border-gray-400 text-xs my-4 mx-auto md:m-4 rounded-lg">
     {% if page_obj.has_previous %}
       <a class="inline-block p-2 md:p-4 hover:bg-gray-200 rounded-l-lg"
-         href="?page={{ page_obj.previous_page_number }}">
+         href="?page={{ page_obj.previous_page_number }}&q={{ page_obj.query }}">
         <img src="{% static 'iconmonstr-arrow-64.svg' %}" alt="arrow right" class="h-4 w-4"/>
       </a>
     {% else %}
-      <a class="inline-block p-2 md:p-4 pointer-events-none" href="?page={{ page_obj.previous_page_number }}">
+      <a class="inline-block p-2 md:p-4 pointer-events-none"
+         href="?page={{ page_obj.previous_page_number }}&q={{ page_obj.query }}">
         <img src="{% static 'iconmonstr-arrow-64.svg' %}" alt="arrow right" class="h-4 w-4"/>
       </a>
     {% endif %}
@@ -28,7 +38,8 @@
             {{ i }}
           </span>
       {% else %}
-        <a class="inline-block p-2 md:p-4 border-l-2 border-gray-400 hover:bg-gray-200" href="?page={{ i }}">
+        <a class="inline-block p-2 md:p-4 border-l-2 border-gray-400 hover:bg-gray-200"
+           href="?page={{ i }}&q={{ page_obj.query }}">
           {{ i }}
         </a>
       {% endif %}
@@ -37,12 +48,12 @@
 
     {% if page_obj.has_next %}
       <a class="inline-block p-2 md:p-4 border-l-2 border-gray-400 hover:bg-gray-200 rounded-r-lg"
-         href="?page={{ page_obj.next_page_number }}">
+         href="?page={{ page_obj.next_page_number }}&q={{ page_obj.query }}">
         <img src="{% static 'iconmonstr-arrow-63.svg' %}" alt="arrow left" class="h-4 w-4"/>
       </a>
     {% else %}
       <a class="inline-block p-2 md:p-4 border-l-2 border-gray-400 pointer-events-none"
-         href="?page={{ page_obj.next_page_number }}">
+         href="?page={{ page_obj.next_page_number }}&q={{ page_obj.query }}">
         <img src="{% static 'iconmonstr-arrow-63.svg' %}" alt="arrow left" class="h-4 w-4"/>
       </a>
     {% endif %}
@@ -68,11 +79,13 @@
 
   <div class="self-start inline-flex items-center border-2 border-gray-400 text-xs my-4 mx-auto md:m-4 rounded-lg">
     {% if page_obj.has_previous %}
-      <a class="inline-block p-2 hover:bg-gray-200 rounded-l-lg" href="?page={{ page_obj.previous_page_number }}">
+      <a class="inline-block p-2 hover:bg-gray-200 rounded-l-lg"
+         href="?page={{ page_obj.previous_page_number }}&q={{ page_obj.query }}">
         <img src="{% static 'iconmonstr-arrow-64.svg' %}" alt="arrow right" class="h-4 w-4"/>
       </a>
     {% else %}
-      <a class="inline-block p-2 pointer-events-none" href="?page={{ page_obj.previous_page_number }}">
+      <a class="inline-block p-2 pointer-events-none"
+         href="?page={{ page_obj.previous_page_number }}&q={{ page_obj.query }}">
         <img src="{% static 'iconmonstr-arrow-64.svg' %}" alt="arrow right" class="h-4 w-4"/>
       </a>
     {% endif %}
@@ -87,7 +100,8 @@
             {{ i }}
           </span>
       {% else %}
-        <a class="inline-block p-2 md:p-4 border-l-2 border-gray-400 hover:bg-gray-200" href="?page={{ i }}">
+        <a class="inline-block p-2 md:p-4 border-l-2 border-gray-400 hover:bg-gray-200"
+           href="?page={{ i }}&q={{ page_obj.query }}">
           {{ i }}
         </a>
       {% endif %}
@@ -96,12 +110,12 @@
 
     {% if page_obj.has_next %}
       <a class="inline-block p-2 md:p-4 border-l-2 border-gray-400 hover:bg-gray-200 rounded-r-lg"
-         href="?page={{ page_obj.next_page_number }}">
+         href="?page={{ page_obj.next_page_number }}&q={{ page_obj.query }}">
         <img src="{% static 'iconmonstr-arrow-63.svg' %}" alt="arrow left" class="h-4 w-4"/>
       </a>
     {% else %}
       <a class="inline-block p-2 md:p-4 border-l-2 border-gray-400 pointer-events-none"
-         href="?page={{ page_obj.next_page_number }}">
+         href="?page={{ page_obj.next_page_number }}&q={{ page_obj.query }}">
         <img src="{% static 'iconmonstr-arrow-63.svg' %}" alt="arrow left" class="h-4 w-4"/>
       </a>
     {% endif %}
