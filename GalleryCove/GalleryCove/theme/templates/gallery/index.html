@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  GalleryClove
+{% endblock %}
+
+{% block content %}
+
+  <label for="search" class="m-4 text-5xl relative">
+    Search the gallery
+    <img src="{% static 'iconmonstr-magnifier-4.svg' %}" alt="magnifier"
+         class="h-4 w-4 relative top-[calc(3.75rem+2px)] left-2"/>
+    <input id="search" name="search"
+           class="pl-8 block border-2 border-gray-400 w-full text-base mt-8 rounded-lg p-2 bg-gray-100 focus:outline-none focus:border-gray-900 focus:bg-white">
+  </label>
+
+  <div class="self-start inline-flex items-center border-2 border-gray-400 text-xs my-4 mx-auto md:m-4 rounded-lg">
+    {% if page_obj.has_previous %}
+      <a class="inline-block p-2 md:p-4 hover:bg-gray-200 rounded-l-lg"
+         href="?page={{ page_obj.previous_page_number }}&q={{ page_obj.query }}">
+        <img src="{% static 'iconmonstr-arrow-64.svg' %}" alt="arrow right" class="h-4 w-4"/>
+      </a>
+    {% else %}
+      <a class="inline-block p-2 md:p-4 pointer-events-none"
+         href="?page={{ page_obj.previous_page_number }}&q={{ page_obj.query }}">
+        <img src="{% static 'iconmonstr-arrow-64.svg' %}" alt="arrow right" class="h-4 w-4"/>
+      </a>
+    {% endif %}
+
+    {% for i in page_obj.pages %}
+      {% if i == "..." %}
+        <span class="inline-block p-2 md:p-4 border-l-2 border-gray-400">
+          <img src="{% static 'iconmonstr-menu-dot-horizontal-filled.svg' %}" alt="ellipsis" class="h-4 w-4"/>
+        </span>
+      {% elif page_obj.number == i %}
+        <span class="inline-block p-2 md:p-4 border-l-2 border-gray-400 bg-gray-300">
+            {{ i }}
+          </span>
+      {% else %}
+        <a class="inline-block p-2 md:p-4 border-l-2 border-gray-400 hover:bg-gray-200"
+           href="?page={{ i }}&q={{ page_obj.query }}">
+          {{ i }}
+        </a>
+      {% endif %}
+    {% endfor %}
+
+
+    {% if page_obj.has_next %}
+      <a class="inline-block p-2 md:p-4 border-l-2 border-gray-400 hover:bg-gray-200 rounded-r-lg"
+         href="?page={{ page_obj.next_page_number }}&q={{ page_obj.query }}">
+        <img src="{% static 'iconmonstr-arrow-63.svg' %}" alt="arrow left" class="h-4 w-4"/>
+      </a>
+    {% else %}
+      <a class="inline-block p-2 md:p-4 border-l-2 border-gray-400 pointer-events-none"
+         href="?page={{ page_obj.next_page_number }}&q={{ page_obj.query }}">
+        <img src="{% static 'iconmonstr-arrow-63.svg' %}" alt="arrow left" class="h-4 w-4"/>
+      </a>
+    {% endif %}
+  </div>
+
+  <section class="p-4 md:grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+    {% for picture in pictures %}
+      <div class="flex flex-col items-center mb-8">
+        {% if picture.image_id == None %}
+          <img src="{% static 'no-image.png' %}"
+               alt="{{ picture.thumbnail.alt_text }}" class="h-80"/>
+        {% else %}
+          <img src="https://www.artic.edu/iiif/2/{{ picture.image_id }}/full/843,/0/default.jpg"
+               alt="{{ picture.thumbnail.alt_text }}" class="h-80"/>
+        {% endif %}
+        <div class="mt-4 text-center">
+          <h4 class="text-xl font-semibold mb-2"> {{ picture.title }}</h4>
+          <p class="whitespace-pre-line">{{ picture.artist_display }}</p>
+        </div>
+      </div>
+    {% endfor %}
+  </section>
+
+  <div class="self-start inline-flex items-center border-2 border-gray-400 text-xs my-4 mx-auto md:m-4 rounded-lg">
+    {% if page_obj.has_previous %}
+      <a class="inline-block p-2 hover:bg-gray-200 rounded-l-lg"
+         href="?page={{ page_obj.previous_page_number }}&q={{ page_obj.query }}">
+        <img src="{% static 'iconmonstr-arrow-64.svg' %}" alt="arrow right" class="h-4 w-4"/>
+      </a>
+    {% else %}
+      <a class="inline-block p-2 pointer-events-none"
+         href="?page={{ page_obj.previous_page_number }}&q={{ page_obj.query }}">
+        <img src="{% static 'iconmonstr-arrow-64.svg' %}" alt="arrow right" class="h-4 w-4"/>
+      </a>
+    {% endif %}
+
+    {% for i in page_obj.pages %}
+      {% if i == "..." %}
+        <span class="inline-block p-2 md:p-4 border-l-2 border-gray-400">
+          <img src="{% static 'iconmonstr-menu-dot-horizontal-filled.svg' %}" alt="ellipsis" class="h-4 w-4"/>
+        </span>
+      {% elif page_obj.number == i %}
+        <span class="inline-block p-2 md:p-4 border-l-2 border-gray-400 bg-gray-300">
+            {{ i }}
+          </span>
+      {% else %}
+        <a class="inline-block p-2 md:p-4 border-l-2 border-gray-400 hover:bg-gray-200"
+           href="?page={{ i }}&q={{ page_obj.query }}">
+          {{ i }}
+        </a>
+      {% endif %}
+    {% endfor %}
+
+
+    {% if page_obj.has_next %}
+      <a class="inline-block p-2 md:p-4 border-l-2 border-gray-400 hover:bg-gray-200 rounded-r-lg"
+         href="?page={{ page_obj.next_page_number }}&q={{ page_obj.query }}">
+        <img src="{% static 'iconmonstr-arrow-63.svg' %}" alt="arrow left" class="h-4 w-4"/>
+      </a>
+    {% else %}
+      <a class="inline-block p-2 md:p-4 border-l-2 border-gray-400 pointer-events-none"
+         href="?page={{ page_obj.next_page_number }}&q={{ page_obj.query }}">
+        <img src="{% static 'iconmonstr-arrow-63.svg' %}" alt="arrow left" class="h-4 w-4"/>
+      </a>
+    {% endif %}
+  </div>
+{% endblock %}
