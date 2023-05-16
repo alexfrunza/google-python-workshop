@@ -74,3 +74,23 @@ pip install -r requirements.txt
     * CRUD operations on location
     * CRUD operations on companies
 
+##### GalleryCove
+
+- GalleryCove is a project where I showed what I learned from Django section of
+  this course. I used an external API for fetching data about pictures.
+    * I found the API on [Public APIs](https://github.com/public-apis/public-apis)
+    * The API with art picture is [Art Institute of Chicago](https://api.artic.edu/docs/#introduction)
+- I made for this project a responsive website with styles from Tailwind.
+- The application consume an API with artworks and display them, it can also search artworks by
+  content.
+- How to run the project for development:
+
+```shell
+# Starting tailwind development watcher
+python manage.py tailwind start
+# Start django server
+python manage.py runserver
+```
+
+![Desktop view](Gallery/desktop.png)
+![Mobile view](Gallery/mobile.png)
